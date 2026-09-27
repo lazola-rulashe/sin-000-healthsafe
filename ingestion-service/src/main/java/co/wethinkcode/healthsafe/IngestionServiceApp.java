@@ -19,7 +19,19 @@ public class IngestionServiceApp {
 			String line;
 
 			while ((line = reader.readLine()) != null) {
-				System.out.println(line);
+//				System.out.println(line);
+				String[] values = line.split(",");
+
+				String ward_id = values[0];
+				String wing = values[1];
+				String department = values[2];
+				String beds_available = values[3];
+
+				System.out.println("Ward_id: " + ward_id);
+				System.out.println("Wing: " + wing);
+				System.out.println("Department: " + department);
+				System.out.println("Beds available: " + beds_available);
+				System.out.println("\n");
 			}
 
 
