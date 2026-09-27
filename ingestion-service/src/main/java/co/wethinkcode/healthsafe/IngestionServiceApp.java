@@ -1,10 +1,8 @@
 package co.wethinkcode.healthsafe;
 
-import io.javalin.Javalin;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class IngestionServiceApp {
 
@@ -13,11 +11,10 @@ public class IngestionServiceApp {
 //
 //        app.get("/", ctx -> ctx.result("hello, world!"));
 
-
-		try {
-			BufferedReader reader = new BufferedReader(
-					new FileReader("wards-outdated.csv")
-			);
+		try (InputStream is = IngestionServiceApp.class
+					.getResourceAsStream("/wards-outdated.csv");
+			 BufferedReader reader = new BufferedReader(
+					 new InputStreamReader(is, StandardCharsets.UTF_8))) {
 
 			String line;
 
@@ -25,10 +22,12 @@ public class IngestionServiceApp {
 				System.out.println(line);
 			}
 
-			reader.close();
 
 		} catch (IOException e) {
-			System.out.println("Could not read the file");
+			System.out.println("Could not read the file.");
+
+		}catch (NullPointerException e) {
+			System.out.println("File not found on classpath.");
 		}
 
         // TODO: read and clean src/main/resources/wards-outdated.csv (wards, wings, specialist departments data —
