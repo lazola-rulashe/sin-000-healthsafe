@@ -1,14 +1,31 @@
 package co.wethinkcode.healthsafe;
+import io.javalin.Javalin;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class IngestionServiceApp {
 
     public static void main(String[] args) {
-//        Javalin app = Javalin.create().start(7030);
-//        app.get("/", ctx -> ctx.result("hello, world!"));
+        Javalin app = Javalin.create().start(7030);
+        app.get("/records", ctx -> {
+			try {
+				String csvContent = new String(Files.readAllBytes(
+					Paths.get("ingestion-service/src/main/java/co/wethinkcode/healthsafe/wards-cleaned.csv")
+				));
+				ctx.result(csvContent);
+			} catch (IOException e) {
+				ctx.status(500).result("Error reading CSV file");
+			}
+		});
 
 		Set<String> previousRows = new HashSet<>();
 		try (InputStream is = IngestionServiceApp.class
@@ -41,6 +58,7 @@ public class IngestionServiceApp {
 				if (wing == null || wing.trim().isEmpty() || wing.equals("N/A") || wing.equals("unknown")) {
 					wing = "TBD";
 				}
+
 				String department = toTitleCase(values[2].trim());
 				if (department == null || department.trim().isEmpty() || department.equals("N/A") || department.equals("unknown")) {
 					department = "TBD";
@@ -51,10 +69,10 @@ public class IngestionServiceApp {
 					beds_available = "TBD";
 				}
 				if (beds_available.equals("full")){
-					beds_available = "2023";
+					beds_available = "6";
 				}
 
-				String cleanedRow = ward_id + "," + wing + "," + department.replace("Icu", "ICU") + "," + beds_available.replace("-", "").replace("five", "5");
+				String cleanedRow = ward_id + "," + wing.replace("  ", " ") + "," + department.replace("Icu", "ICU") + "," + beds_available.replace("-", "").replace("five", "5");
 
 				if (previousRows.contains(cleanedRow)) {
 					continue;
@@ -67,9 +85,6 @@ public class IngestionServiceApp {
 				writer.flush();
 
 			}
-
-
-
 
 
 		} catch (IOException e) {
