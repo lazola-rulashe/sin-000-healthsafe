@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 public class IngestionServiceApp {
 
     public static void main(String[] args) {
-//        Javalin app = Javalin.create().start(7070);
+//        Javalin app = Javalin.create().start(7030);
 //        app.get("/", ctx -> ctx.result("hello, world!"));
 
 		try (InputStream is = IngestionServiceApp.class
@@ -31,27 +31,27 @@ public class IngestionServiceApp {
 				if (values.length < 4) {
 					continue;
 				}
-
 				String ward_id = values[0].trim().toUpperCase();
 
 				String wing = toTitleCase(values[1].trim());
-				if (wing == null || wing.trim().isEmpty()) {
+				if (wing == null || wing.trim().isEmpty() || wing.equals("N/A") || wing.equals("unknown")) {
 					wing = "TBD";
 				}
 				String department = toTitleCase(values[2].trim());
+				if (department == null || department.trim().isEmpty() || department.equals("N/A") || department.equals("unknown")) {
+					department = "TBD";
+				}
 
 				String beds_available = values[3].trim();
 				if (beds_available.equals("N/A") || beds_available.equals("unknown")) {
 					beds_available = "TBD";
 				}
+				if (beds_available.equals("full")){
+					beds_available = "2023";
+				}
 
-				System.out.println("Ward_id: " + ward_id);
-				System.out.println("Wing: " + wing);
-				System.out.println("Department: " + department);
-				System.out.println("Beds available: " + beds_available);
-				System.out.println("\n");
 
-				writer.write(ward_id + "," + wing + "," + department.replace("Icu", "ICU") + "," + beds_available);
+				writer.write(ward_id + "," + wing + "," + department.replace("Icu", "ICU") + "," + beds_available.replace("-", "").replace("five", "5"));
 				writer.newLine();
 				writer.flush();
 
