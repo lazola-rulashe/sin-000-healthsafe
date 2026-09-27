@@ -33,9 +33,17 @@ public class IngestionServiceApp {
 				}
 
 				String ward_id = values[0].trim().toUpperCase();
+
 				String wing = toTitleCase(values[1].trim());
+				if (wing == null || wing.trim().isEmpty()) {
+					wing = "TBD";
+				}
 				String department = toTitleCase(values[2].trim());
+
 				String beds_available = values[3].trim();
+				if (beds_available.equals("N/A") || beds_available.equals("unknown")) {
+					beds_available = "TBD";
+				}
 
 				System.out.println("Ward_id: " + ward_id);
 				System.out.println("Wing: " + wing);
@@ -43,11 +51,15 @@ public class IngestionServiceApp {
 				System.out.println("Beds available: " + beds_available);
 				System.out.println("\n");
 
-				writer.write(ward_id + "," + wing + "," + department + "," + beds_available);
+				writer.write(ward_id + "," + wing + "," + department.replace("Icu", "ICU") + "," + beds_available);
 				writer.newLine();
 				writer.flush();
 
 			}
+
+
+
+
 
 		} catch (IOException e) {
 			System.out.println("Could not read or write the file.");
