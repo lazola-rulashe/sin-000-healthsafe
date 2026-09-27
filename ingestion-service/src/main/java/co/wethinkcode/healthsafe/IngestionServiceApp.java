@@ -1,6 +1,8 @@
 package co.wethinkcode.healthsafe;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
+import java.util.Set;
 
 public class IngestionServiceApp {
 
@@ -8,6 +10,7 @@ public class IngestionServiceApp {
 //        Javalin app = Javalin.create().start(7030);
 //        app.get("/", ctx -> ctx.result("hello, world!"));
 
+		Set<String> previousRows = new HashSet<>();
 		try (InputStream is = IngestionServiceApp.class
 					.getResourceAsStream("/wards-outdated.csv");
 			 BufferedReader reader = new BufferedReader(
@@ -24,6 +27,7 @@ public class IngestionServiceApp {
 			reader.readLine();
 
 			String line;
+
 
 			while ((line = reader.readLine()) != null) {
 
@@ -50,8 +54,15 @@ public class IngestionServiceApp {
 					beds_available = "2023";
 				}
 
+				String cleanedRow = ward_id + "," + wing + "," + department.replace("Icu", "ICU") + "," + beds_available.replace("-", "").replace("five", "5");
 
-				writer.write(ward_id + "," + wing + "," + department.replace("Icu", "ICU") + "," + beds_available.replace("-", "").replace("five", "5"));
+				if (previousRows.contains(cleanedRow)) {
+					continue;
+				}
+
+				previousRows.add(cleanedRow);
+
+				writer.write(cleanedRow);
 				writer.newLine();
 				writer.flush();
 
