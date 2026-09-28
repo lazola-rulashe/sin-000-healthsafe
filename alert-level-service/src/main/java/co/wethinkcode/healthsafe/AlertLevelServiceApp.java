@@ -42,6 +42,16 @@ public class AlertLevelServiceApp {
 		black.put("code", "black");
 		black.put("situation", "Bomb threat");
 
+		JSONObject red = new JSONObject();
+		red.put("level", 7);
+		red.put("code", "red");
+		red.put("situation", "ire or smoke detected within the building");
+
+		JSONObject blue = new JSONObject();
+		blue.put("level", 8);
+		blue.put("code", "blue");
+		blue.put("situation", "Medical emergency requiring immediate resuscitation");
+
 
 
 
