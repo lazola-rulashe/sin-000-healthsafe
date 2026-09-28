@@ -11,6 +11,12 @@ public class AlertLevelServiceApp {
         app.get("/health", ctx -> ctx.result("OK"));
 
 		app.get("/records", ctx ->{
+
+			JSONObject white = new JSONObject();
+			white.put("level", 0);
+			white.put("code", "white");
+			white.put("situation", "all clear");
+
 			JSONObject green = new JSONObject();
 			green.put("level", 1);
 			green.put("code", "green");
@@ -53,6 +59,7 @@ public class AlertLevelServiceApp {
 
 			JSONObject emergencyCodes = new JSONObject();
 
+			emergencyCodes.put("Level 0", white);
 			emergencyCodes.put("Level 1", green);
 			emergencyCodes.put("Level 2", silver);
 			emergencyCodes.put("Level 3", yellow);
