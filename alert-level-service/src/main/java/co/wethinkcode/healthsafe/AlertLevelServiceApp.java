@@ -25,12 +25,22 @@ public class AlertLevelServiceApp {
 		JSONObject yellow = new JSONObject();
 		yellow.put("level", 3);
 		yellow.put("code", "yellow");
-		yellow.put("situation", "Disaster preparedness or mass casualty incident ");
+		yellow.put("situation", "Disaster preparedness or mass casualty incident");
 
 		JSONObject orange = new JSONObject();
 		orange.put("level", 4);
 		orange.put("code", "orange");
 		orange.put("situation", "Hazardous material spill or release");
+
+		JSONObject pink = new JSONObject();
+		pink.put("level", 5);
+		pink.put("code", "pink");
+		pink.put("situation", "Infant or child abduction");
+
+		JSONObject black = new JSONObject();
+		black.put("level", 6);
+		black.put("code", "black");
+		black.put("situation", "Bomb threat");
 
 
 
