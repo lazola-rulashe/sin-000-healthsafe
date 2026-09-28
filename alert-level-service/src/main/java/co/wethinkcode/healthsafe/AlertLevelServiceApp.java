@@ -7,61 +7,65 @@ import org.json.JSONObject;
 public class AlertLevelServiceApp {
 
     public static void main(String[] args) {
-//        Javalin app = Javalin.create().start(7032);
-//
-//        app.get("/health", ctx -> ctx.result("OK"));
+        Javalin app = Javalin.create().start(7032);
+        app.get("/health", ctx -> ctx.result("OK"));
 
+		app.get("/records", ctx ->{
+			JSONObject green = new JSONObject();
+			green.put("level", 1);
+			green.put("code", "green");
+			green.put("situation", "Emergency evacuation protocol");
 
-		JSONObject green = new JSONObject();
-		green.put("level", 1);
-		green.put("code", "green");
-		green.put("situation", "Emergency evacuation protocol");
+			JSONObject silver = new JSONObject();
+			silver.put("level", 2);
+			silver.put("code", "silver");
+			silver.put("situation", "Active shooter or an armed threat");
 
-		JSONObject silver = new JSONObject();
-		silver.put("level", 2);
-		silver.put("code", "silver");
-		silver.put("situation", "Active shooter or an armed threat");
+			JSONObject yellow = new JSONObject();
+			yellow.put("level", 3);
+			yellow.put("code", "yellow");
+			yellow.put("situation", "Disaster preparedness or mass casualty incident");
 
-		JSONObject yellow = new JSONObject();
-		yellow.put("level", 3);
-		yellow.put("code", "yellow");
-		yellow.put("situation", "Disaster preparedness or mass casualty incident");
+			JSONObject orange = new JSONObject();
+			orange.put("level", 4);
+			orange.put("code", "orange");
+			orange.put("situation", "Hazardous material spill or release");
 
-		JSONObject orange = new JSONObject();
-		orange.put("level", 4);
-		orange.put("code", "orange");
-		orange.put("situation", "Hazardous material spill or release");
+			JSONObject pink = new JSONObject();
+			pink.put("level", 5);
+			pink.put("code", "pink");
+			pink.put("situation", "Infant or child abduction");
 
-		JSONObject pink = new JSONObject();
-		pink.put("level", 5);
-		pink.put("code", "pink");
-		pink.put("situation", "Infant or child abduction");
+			JSONObject black = new JSONObject();
+			black.put("level", 6);
+			black.put("code", "black");
+			black.put("situation", "Bomb threat");
 
-		JSONObject black = new JSONObject();
-		black.put("level", 6);
-		black.put("code", "black");
-		black.put("situation", "Bomb threat");
+			JSONObject red = new JSONObject();
+			red.put("level", 7);
+			red.put("code", "red");
+			red.put("situation", "ire or smoke detected within the building");
 
-		JSONObject red = new JSONObject();
-		red.put("level", 7);
-		red.put("code", "red");
-		red.put("situation", "ire or smoke detected within the building");
+			JSONObject blue = new JSONObject();
+			blue.put("level", 8);
+			blue.put("code", "blue");
+			blue.put("situation", "Medical emergency requiring immediate resuscitation");
 
-		JSONObject blue = new JSONObject();
-		blue.put("level", 8);
-		blue.put("code", "blue");
-		blue.put("situation", "Medical emergency requiring immediate resuscitation");
+			JSONObject emergencyCodes = new JSONObject();
 
-		JSONObject emergencyCodes = new JSONObject();
+			emergencyCodes.put("Level 1", green);
+			emergencyCodes.put("Level 2", silver);
+			emergencyCodes.put("Level 3", yellow);
+			emergencyCodes.put("Level 4", orange);
+			emergencyCodes.put("Level 5", pink);
+			emergencyCodes.put("Level 6", black);
+			emergencyCodes.put("Level 7", red);
+			emergencyCodes.put("Level 8", blue);
 
-		emergencyCodes.put("Level 1", green);
-		emergencyCodes.put("Level 2", silver);
-		emergencyCodes.put("Level 3", yellow);
-		emergencyCodes.put("Level 4", orange);
-		emergencyCodes.put("Level 5", pink);
-		emergencyCodes.put("Level 6", black);
-		emergencyCodes.put("Level 7", red);
-		emergencyCodes.put("Level 8", blue);
+			ctx.contentType("json");
+			ctx.result(emergencyCodes.toString());
+		});
+
 
 
 
