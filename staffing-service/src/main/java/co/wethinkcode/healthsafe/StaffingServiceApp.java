@@ -18,17 +18,27 @@ public class StaffingServiceApp {
 
 			HttpClient client = HttpClient.newHttpClient();
 
-			HttpRequest request = HttpRequest.newBuilder()
+			HttpRequest wardsRequest = HttpRequest.newBuilder()
 					.uri(URI.create("http://localhost:7032/records"))
 					.GET()
 					.build();
 
-			HttpResponse<String> response = client.send(
-					request,
+			HttpResponse<String> wardsResponse = client.send(
+					wardsRequest,
 					HttpResponse.BodyHandlers.ofString()
 			);
 
-			ctx.result(response.body());
+			HttpRequest emergencyRequest = HttpRequest.newBuilder()
+					.uri(URI.create("http://localhost:7032/records"))
+					.GET()
+					.build();
+
+			HttpResponse<String> emergencyResponse = client.send(
+					emergencyRequest,
+					HttpResponse.BodyHandlers.ofString()
+			);
+
+			ctx.result("Wards: \n" + wardsResponse.body() + "\nEmergency status: \n" + emergencyResponse.body());
 		});
 
         // TODO (Provides on-call schedules for doctors based on ward and status.)
