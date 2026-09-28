@@ -65,8 +65,8 @@ public class IngestionServiceApp {
 				if (beds_available.equals("N/A") || beds_available.equals("unknown")) {
 					beds_available = "TBD";
 				}
-				if (beds_available.equals("full")){
-					beds_available = "6";
+				if (beds_available.equals(0)){
+					beds_available = "full";
 				}
 
 				String cleanedRow = ward_id + "," + wing.replace("  ", " ") + "," + department.replace("Icu", "ICU") + "," + beds_available.replace("-", "").replace("five", "5");
