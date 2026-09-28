@@ -52,6 +52,17 @@ public class AlertLevelServiceApp {
 		blue.put("code", "blue");
 		blue.put("situation", "Medical emergency requiring immediate resuscitation");
 
+		JSONObject emergencyCodes = new JSONObject();
+
+		emergencyCodes.put("Level 1", green);
+		emergencyCodes.put("Level 2", silver);
+		emergencyCodes.put("Level 3", yellow);
+		emergencyCodes.put("Level 4", orange);
+		emergencyCodes.put("Level 5", pink);
+		emergencyCodes.put("Level 6", black);
+		emergencyCodes.put("Level 7", red);
+		emergencyCodes.put("Level 8", blue);
+
 
 
 
