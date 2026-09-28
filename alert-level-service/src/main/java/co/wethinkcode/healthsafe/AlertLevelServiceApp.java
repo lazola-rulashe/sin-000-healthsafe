@@ -17,10 +17,22 @@ public class AlertLevelServiceApp {
 		green.put("code", "green");
 		green.put("situation", "Emergency evacuation protocol");
 
+		JSONObject silver = new JSONObject();
+		silver.put("level", 2);
+		silver.put("code", "silver");
+		silver.put("situation", "Active shooter or an armed threat");
+
 		JSONObject yellow = new JSONObject();
-		yellow.put("level", 2);
-		yellow.put("code", "silver");
-		yellow.put("situation", "Active shooter or an armed threat");
+		yellow.put("level", 3);
+		yellow.put("code", "yellow");
+		yellow.put("situation", "Disaster preparedness or mass casualty incident ");
+
+		JSONObject orange = new JSONObject();
+		orange.put("level", 4);
+		orange.put("code", "orange");
+		orange.put("situation", "Hazardous material spill or release");
+
+
 
 
 
