@@ -50,7 +50,7 @@ public class AlertLevelServiceApp {
 			JSONObject red = new JSONObject();
 			red.put("level", 7);
 			red.put("code", "red");
-			red.put("situation", "ire or smoke detected within the building");
+			red.put("situation", "fire or smoke detected within the building");
 
 			JSONObject blue = new JSONObject();
 			blue.put("level", 8);
