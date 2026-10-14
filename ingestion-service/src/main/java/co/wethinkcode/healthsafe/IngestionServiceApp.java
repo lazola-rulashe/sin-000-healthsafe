@@ -16,7 +16,7 @@ public class IngestionServiceApp {
         app.get("/records", ctx -> {
 			try {
 				String csvContent = new String(Files.readAllBytes(
-					Paths.get("ingestion-service/src/main/java/co/wethinkcode/healthsafe/wards-cleaned.csv")
+					Paths.get("ingestion-service/src/main/java/co/wethinkcode/healthsafe/wards-outdated.csv")
 				));
 				ctx.result(csvContent);
 			} catch (IOException e) {
@@ -31,7 +31,7 @@ public class IngestionServiceApp {
 					 new InputStreamReader(is, StandardCharsets.UTF_8));
 
 			 BufferedWriter writer = new BufferedWriter(
-					 new FileWriter("ingestion-service/src/main/java/co/wethinkcode/healthsafe/wards-cleaned.csv"))
+					 new FileWriter("src/main/resources/wards-cleaned.csv "))
 
 			 )
 			{
