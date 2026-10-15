@@ -19,6 +19,17 @@ public class AlertLevelServiceApp {
 				ctx.result(response.toString());
 				});
 
+		app.post("/alert-level", ctx ->{
+			int newLevel = ctx.bodyAsClass(Integer.class);
+			if(newLevel >=0 && newLevel <=8){
+				currentLevel = newLevel;
+				ctx.status(200);
+			}else{
+				ctx.result("This level is unknown");
+				ctx.status(400);
+			}
+		});
+
 
         // TODO (Tracks the hospital Emergency Status (0-8, 8 = full Code Blue).)
         // Add domain endpoints for alert-level-service here.
