@@ -1,11 +1,12 @@
 package co.wethinkcode.healthsafe;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 
 public class EmergencyStatusLevels {
 
-    public String emergency() {
+    public JSONArray emergency() {
 
         JSONObject white = new JSONObject();
         white.put("level", 0);
@@ -64,7 +65,8 @@ public class EmergencyStatusLevels {
         emergencyCodes.put("Level 7", red);
         emergencyCodes.put("Level 8", blue);
 
-        return emergencyCodes.toString();
+        JSONArray jsonArray = new JSONArray(emergencyCodes);
+        return jsonArray;
 
     }
 }
