@@ -14,15 +14,10 @@ public class IngestionServiceApp {
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(7030);
         app.get("/records", ctx -> {
-			try {
-				String csvContent = new String(Files.readAllBytes(
-					Paths.get("ingestion-service/src/main/java/co/wethinkcode/healthsafe/wards-outdated.csv")
-				));
-				ctx.result(csvContent);
-			} catch (IOException e) {
-				ctx.status(500).result("Error reading CSV file");
-			}
-		});
+            InputStream csvContent = IngestionServiceApp.class
+                    .getResourceAsStream("/wards-outdated.csv");;
+            ctx.result(csvContent);
+        });
 
 		Set<String> previousRows = new HashSet<>();
 		try (InputStream is = IngestionServiceApp.class
@@ -31,7 +26,7 @@ public class IngestionServiceApp {
 					 new InputStreamReader(is, StandardCharsets.UTF_8));
 
 			 BufferedWriter writer = new BufferedWriter(
-					 new FileWriter("src/main/resources/wards-cleaned.csv "))
+					 new FileWriter("src/main/resources/wards-cleaned.csv"))
 
 			 )
 			{
