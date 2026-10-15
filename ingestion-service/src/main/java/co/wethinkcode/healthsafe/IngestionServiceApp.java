@@ -13,6 +13,8 @@ public class IngestionServiceApp {
 
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(7030);
+		app.get("/health", ctx -> ctx.result("OK"));
+
         app.get("/records", ctx -> {
             InputStream csvContent = IngestionServiceApp.class
                     .getResourceAsStream("/wards-outdated.csv");;
