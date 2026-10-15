@@ -3,10 +3,13 @@ package co.wethinkcode.healthsafe;
 import io.javalin.Javalin;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 
 public class AlertLevelServiceApp {
 
 	private static int currentLevel = 0;
+	public static EmergencyStatusLevels emergencyCodes;;
 
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(7032);
@@ -20,9 +23,10 @@ public class AlertLevelServiceApp {
 				});
 
 		app.post("/alert-level", ctx ->{
-			int newLevel = ctx.bodyAsClass(Integer.class);
+			int newLevel = Integer.parseInt(ctx.body());
 			if(newLevel >=0 && newLevel <=8){
 				currentLevel = newLevel;
+				ctx.result("New level is : " + newLevel);
 				ctx.status(200);
 			}else{
 				ctx.result("This level is unknown");
