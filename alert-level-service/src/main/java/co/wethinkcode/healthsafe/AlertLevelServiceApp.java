@@ -3,13 +3,10 @@ package co.wethinkcode.healthsafe;
 import io.javalin.Javalin;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 
 public class AlertLevelServiceApp {
 
 	private static int currentLevel = 0;
-	public static EmergencyStatusLevels emergencyCodes;;
 
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(7032);

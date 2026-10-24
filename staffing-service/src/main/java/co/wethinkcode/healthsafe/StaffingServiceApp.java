@@ -77,9 +77,6 @@ public class StaffingServiceApp {
 			ctx.json(schedule);
 
 		});
-
-        // TODO (Provides on-call schedules for doctors based on ward and status.)
-        // Add domain endpoints for staffing-service here.
     }
 }
 
